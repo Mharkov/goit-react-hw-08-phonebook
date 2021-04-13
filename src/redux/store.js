@@ -11,7 +11,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
 import counterReducer from './contact/contacts-reducer';
 import authReducer from './auth/auth-reducer';
 
@@ -23,13 +22,6 @@ const middleware = [
   }),
   logger,
 ];
-
-//
-// const rootReducer = combineReducers({
-//   contacts: persisterReducer(PersistConfig, counterReducer),
-// });
-
-// const persisterReducer = persistReducer(PersistConfig, rootReducer);
 
 const authPersistConfig = {
   key: 'auth',
@@ -49,6 +41,13 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export default { store, persistor };
+
+//
+// const rootReducer = combineReducers({
+//   contacts: persisterReducer(PersistConfig, counterReducer),
+// });
+
+// const persisterReducer = persistReducer(PersistConfig, rootReducer);
 
 // import { applyMiddleware, combineReducers } from 'redux';
 // const rootReducer = combineReducers({

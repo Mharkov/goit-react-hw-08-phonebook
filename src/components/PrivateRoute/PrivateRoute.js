@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../redux/auth/auth-selectors';
+import { getIsisAuthorizedSelector } from '../../redux/auth/auth-selectors';
 
 /**
  * 1. Он должен повторять API Route
@@ -14,7 +14,7 @@ export default function PrivateRoute({
   redirectTo = '/',
   ...routeProps
 }) {
-  const isLoadID = useSelector(isAuthenticated);
+  const isLoadID = useSelector(getIsisAuthorizedSelector);
   return (
     <Route {...routeProps}>
       {isLoadID ? children : <Redirect to={redirectTo} />}

@@ -7,6 +7,16 @@ const initialState = {
   email: null,
 };
 
+const isAuthorized = createReducer(false, {
+  [authActions.loginSuccess]: () => true,
+  [authActions.signupSuccess]: () => true,
+  [authActions.currentSuccess]: () => true,
+  [authActions.logoutSuccess]: () => false,
+  [authActions.currentError]: () => false,
+  [authActions.loginError]: () => false,
+  [authActions.signupError]: () => false,
+});
+
 const isLoading = createReducer(false, {
   [authActions.currentRequest]: () => true,
   [authActions.currentSuccess]: () => false,
@@ -29,7 +39,6 @@ const user = createReducer(initialState, {
   [authActions.signupSuccess]: (_, { payload }) => payload.user,
   [authActions.loginSuccess]: (_, { payload }) => payload.user,
   [authActions.logoutSuccess]: () => initialState,
-  // [authActions.logoutError]: () => initialState.user,
   [authActions.currentSuccess]: (_, { payload }) => payload,
 });
 
@@ -37,7 +46,6 @@ const token = createReducer(null, {
   [authActions.signupSuccess]: (_, action) => action.payload.token,
   [authActions.loginSuccess]: (_, action) => action.payload.token,
   [authActions.logoutSuccess]: () => null,
-  // [authActions.logoutError]: () => initialState.token,
 });
 
 const error = createReducer(null, {
@@ -52,4 +60,5 @@ export default combineReducers({
   token,
   isLoading,
   error,
+  isAuthorized,
 });

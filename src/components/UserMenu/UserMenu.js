@@ -1,16 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
 import { getUseremail } from '../../redux/auth/auth-selectors';
-import { getCurrentUser, logout } from '../../redux/auth/auth-operations';
+import { logout } from '../../redux/auth/auth-operations';
 import style from './UserMenu.module.css';
 
 export default function UserMenu() {
   const dispatch = useDispatch();
   const email = useSelector(getUseremail);
-
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
 
   return (
     <div className={style.container}>

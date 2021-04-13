@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../redux/auth/auth-selectors';
+import { getIsisAuthorizedSelector } from '../../redux/auth/auth-selectors';
 
 /**
  * - Если маршрут ограниченный, и юзер залогинен, рендерит редирект на redirectTo
@@ -8,14 +8,9 @@ import { isAuthenticated } from '../../redux/auth/auth-selectors';
  *
  */
 
-export default function PublicRoute({
-  children,
-  restricted = false,
-  redirectTo = '/',
-  ...routeProps
-}) {
-  const isLoadID = useSelector(isAuthenticated);
-  const shouldRedirect = isLoadID && restricted;
+export default function PublicRoute({ children, redirectTo, ...routeProps }) {
+  const isLoadID = useSelector(getIsisAuthorizedSelector);
+  const shouldRedirect = isLoadID && routeProps.restricted;
   return (
     <Route {...routeProps}>
       {shouldRedirect ? <Redirect to={redirectTo} /> : children}

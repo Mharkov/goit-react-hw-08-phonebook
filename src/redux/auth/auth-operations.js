@@ -48,7 +48,14 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const getCurrentUser = () => (dispatch) => {
+export const getCurrentUser = () => (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
   dispatch(authActions.currentRequest());
   axios
     .get('/users/current')
